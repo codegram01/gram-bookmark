@@ -1,14 +1,14 @@
-# Name Project
+# Gram Web Bookmark
 
-Description
+Web help use save any link from the Internet.
 
-[Video when i create]()
+[Video when i create](https://www.youtube.com/live/W9ISlNhorr8)
 
-## Feature
+## Why
+I create this project for example how to use [GramJs](https://github.com/codegram01/gramjs) (my own js framework)
 
 ## Usage
-
-## Install
+Goto [mark.wingram.org](https://mark.wingram.org/)
 
 ## Contribute
 - fork, update, merge, open issue is happy
