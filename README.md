@@ -1,6 +1,6 @@
 # Gram Web Bookmark
 
-Web help use save any link from the Internet.
+Web help you save any link from the Internet.
 
 [Video when i create](https://www.youtube.com/live/W9ISlNhorr8)
 
