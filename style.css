@@ -1,53 +1,102 @@
 .overlay {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #00000090;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #00000090;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
-    background-color: var(--c-black-2a);
-    /* padding: 12px; */
-    min-width: 400px;
-    border-radius: 6px;
+  background-color: var(--c-black-2a);
+  /* padding: 12px; */
+  min-width: 400px;
+  border-radius: 6px;
 }
 
 .app-ctn {
-    padding: 24px;
+  padding: 24px;
 }
 
 .app-ctn-wrap {
-    display: flex;
-    flex-flow: column;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 .search-ctn {
-    padding-bottom: 12px;
-    display: flex;
-    align-items: center;
+  padding-bottom: 12px;
+  display: flex;
+  align-items: center;
 }
 
 .bookmarks-ctn {
-    height: 100%;
-    overflow-y: auto;
+  height: 100%;
+  overflow-y: auto;
 }
 
 table {
-    width: 100%;
-    display: table;
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
+.b-title {
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.b-desc {
+  color: var(--color-text-desc);
+  font-size: 14px;
+}
+
+.b-link {
+  color: var(--c-yellow-3);
+  font-size: 14px;
+}
+
+.b-index {
+  padding: 0px 6px;
+}
+
+.b-action {
+  padding: 0px 6px;
+  position: relative;
+  cursor: pointer;
+}
+
+.b-action:hover {
+  background: var(--c-black-3);
+}
+
+.b-action img {
+  width: 14px;
+  min-width: 14px;
+}
+
+th:nth-child(even) {
+    background-color: #D6EEEE;
+  }
+
+.b-title, .b-link, .b-desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+/*
 table .site {
     max-width: 200px;
     overflow: hidden;
@@ -62,7 +111,7 @@ table .bookmark-desc {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-line-clamp: 2;
             line-clamp: 2;
     -webkit-box-orient: vertical;
 }
@@ -75,4 +124,4 @@ table .bookmark-desc:hover {
 table .bookmark-action {
     gap: 6px;
     display: flex;
-}
+} */

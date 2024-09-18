@@ -1,4 +1,4 @@
-import { addBookmarkCom } from "./addBookmark.js";
+import { bookmarkCom } from "./bookmark.js";
 import { e, ref, g_if } from "/gram.js";
 
 export function navActionCom() {
@@ -8,7 +8,7 @@ export function navActionCom() {
 
     return e("div", { className: "action"},
         e("button", {text: "Add", onclick: openBookmark}),
-        g_if(e("div"), showBookmark, () => addBookmarkCom({
+        g_if(e("div"), showBookmark, () => bookmarkCom({
             emitClose: closeBookmark
         })),
     )

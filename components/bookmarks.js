@@ -1,43 +1,53 @@
 import { shortUrl } from "../src/url.js";
 import { getBookmarks, removeBookmark } from "../store.js";
-import { e, range } from "/gram.js";
+import { bookmarkCom } from "./bookmark.js";
+import { e, range, g_if, ref  } from "/gram.js";
 
-export function bookmarksCom(){
-    function callRemoveBookmark(index){
-        const c = confirm("Do you want to delete this bookmark?")
-        if(c) {
-            removeBookmark(index)
-        }
-    }
-    return e("div", {className: "bookmarks-ctn"},
-        e("table", {}, 
-            e("thead", {}, 
-                e("tr", {}, 
-                    e("th", {text: "Site"}),
-                    e("th", {text: "Description"}),
-                    e("th", {text: "Action"})
-                )
-            ),
-            range(e("tbody") ,getBookmarks(), (bookmark, index) => {
-                // return e("li", {text: `${index}: ${fruit} - `}, 
-                //   e("button", {text: "x", onclick: ()=>{removeFruit(index)}})
-                // )
-                return e("tr", {}, 
-                    e("td",{ className: "site"},
-                        e("div", {text: bookmark.title}),
-                        e("a", { href:bookmark.url, target: "_blank", text: shortUrl(bookmark.url)} )
-                    ),
-                    e("td", {},
-                        e("div", {text: bookmark.description, className: "bookmark-desc"})
-                    ),
-                    e("td", {style: "min-width: 100px;"}, 
-                        e("div",{className: "bookmark-action"},
-                            e("img", {className:"btn btn-black" ,src: "/static/icons/edit.svg", onclick: ()=>{}}),
-                            e("img", {className:"btn btn-black" ,src: "/static/icons/trash.svg", onclick: ()=>{callRemoveBookmark(index)}})
-                        )
-                    )
-                )
+export function bookmarksCom() {
+  const showUpdate = ref(false)
+  let bookmarkUpdate;
+  const openUpdate = (bookmark) => {
+    bookmarkUpdate = bookmark;
+    showUpdate.value = true;
+  }
+  const closeUpdate = () => showUpdate.value = false;
+
+  return e("div", { className: "bookmarks-ctn" },
+    e( "table", {},
+      range(e("tbody"), getBookmarks(), (bookmark, index) => {
+        return [
+          e("tr", {},
+            e("th", { rowSpan: 3, html: `${index + 1}`, className: "b-index" }),
+            e("td",{},
+              e("a", {
+                href: bookmark.url,
+                target: "_blank",
+                text: bookmark.title,
+                className: "b-title",
               })
-        )
-    )
+            ),
+            e("th", {rowSpan: 3, className: "b-action",  onclick: ()=>{ openUpdate(bookmark) }},
+                e("img", {src: "/static/icons/edit.svg"}),
+            )
+          ),
+          e("tr",{},
+            e("td", { className: "b-desc", text: bookmark.description }),
+          ),
+          e("tr",{},
+            e("td", {},
+              e("span", {
+                className: "b-link",
+                text: shortUrl(bookmark.url),
+              })
+            ),
+          ),
+        ];
+      })
+    ),
+
+    g_if(e("div"), showUpdate, () => bookmarkCom({
+        emitClose: closeUpdate,
+        bookmark: bookmarkUpdate
+    }))
+  );
 }

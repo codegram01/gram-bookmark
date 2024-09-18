@@ -41,6 +41,7 @@ export const getBookmarks = () => {
 
 export const addBookmark = (url, title, description) => {
     bookmarks.value.unshift({
+        id: Date.now().toString(36),
         url: url,
         title: title,
         description: description
@@ -49,10 +50,28 @@ export const addBookmark = (url, title, description) => {
     saveBookmarskLocal();
 }
 
-export const removeBookmark = (index) => {
-    bookmarks.value.splice(index, 1);
-    bookmarks.markChange();
-    saveBookmarskLocal();
+export const updateBookmark = (id, url, title, description) => {
+    const idx = getIndexBookmark(id);
+    if(idx >= 0){
+        bookmarks.value[idx].url = url;
+        bookmarks.value[idx].title = title;
+        bookmarks.value[idx].description = description;
+        bookmarks.markChange();
+        saveBookmarskLocal();
+    }
+}
+
+function getIndexBookmark(id){
+   return bookmarks.value.findIndex(item => item.id == id);
+}
+
+export const removeBookmark = (id) => {
+    const idx = getIndexBookmark(id);
+    if(idx >= 0){
+        bookmarks.value.splice(idx, 1);
+        bookmarks.markChange();
+        saveBookmarskLocal();
+    }
 }
 
 export const searchBookmarks = (key) => {
