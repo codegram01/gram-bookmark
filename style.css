@@ -1,0 +1,78 @@
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000090;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background-color: var(--c-black-2a);
+    /* padding: 12px; */
+    min-width: 400px;
+    border-radius: 6px;
+}
+
+.app-ctn {
+    padding: 24px;
+}
+
+.app-ctn-wrap {
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.search-ctn {
+    padding-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.bookmarks-ctn {
+    height: 100%;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    display: table;
+}
+
+table .site {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+table .site:hover {
+    overflow: visible;
+}
+
+table .bookmark-desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+            line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+table .bookmark-desc:hover {
+    overflow: visible;
+    display: unset;
+}
+
+table .bookmark-action {
+    gap: 6px;
+    display: flex;
+}
