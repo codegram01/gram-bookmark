@@ -15,6 +15,11 @@ export function bookmarkCom(props){
     const url = ref("");
     const title = ref("");
     const description = ref("");
+    if(isUpdate()){
+        url.value = bookmarkProp.url;
+        title.value = bookmarkProp.title;
+        description.value = bookmarkProp.description;
+    }
 
     function formSubmit(e){
         e.preventDefault();
@@ -52,11 +57,6 @@ export function bookmarkCom(props){
     }
 
     function onmounted(){
-        if(isUpdate()){
-            url.value = bookmarkProp.url;
-            title.value = bookmarkProp.title;
-            description.value = bookmarkProp.description;
-        }
     }
 
     return e("div", {className: "overlay", onclick: emitClose, onmounted: onmounted},
