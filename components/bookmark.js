@@ -1,4 +1,4 @@
-import { e } from "/gram.js";
+import { e, ref } from "/gram.js";
 import { addBookmark, removeBookmark, updateBookmark } from "../store.js";
 import { crawlUrl } from "../src/crawl.js";
 import { convertToUrl } from "../src/url.js";
@@ -12,23 +12,21 @@ export function bookmarkCom(props){
         if(props.emitClose) props.emitClose();
     }
 
-    let formElm;
+    const url = ref("");
+    const title = ref("");
+    const description = ref("");
 
     function formSubmit(e){
         e.preventDefault();
 
-        const url = e.target.elements["url"].value
-        const title = e.target.elements["title"].value
-        const description = e.target.elements["description"].value
-
-        if(!url){
+        if(!url.value){
             return;
         }
 
         if(isUpdate()){
-            updateBookmark(bookmarkProp.id, url, title, description);
+            updateBookmark(bookmarkProp.id, url.value, title.value, description.value);
         } else {
-            addBookmark(url, title, description)
+            addBookmark(url.value, title.value, description.value)
         }
 
         emitClose();
@@ -36,16 +34,12 @@ export function bookmarkCom(props){
     };
 
     async function enterUrl(e){
-        let url = e.target.value;
+        url.value = convertToUrl(url.value)
 
-        // auto convert url for user
-        url = convertToUrl(url)
-        formElm.elements["url"].value = url;
+        const dataWeb = await crawlUrl(url.value)
 
-        const dataWeb = await crawlUrl(url)
-
-        formElm.elements["title"].value = dataWeb.title;
-        formElm.elements["description"].value = dataWeb.description;
+        title.value = dataWeb.title;
+        description.value = dataWeb.description;
     }
 
     function callRemoveBookmark() {
@@ -59,27 +53,27 @@ export function bookmarkCom(props){
 
     function onmounted(){
         if(isUpdate()){
-            formElm.elements["url"].value = bookmarkProp.url;
-            formElm.elements["title"].value = bookmarkProp.title;
-            formElm.elements["description"].value = bookmarkProp.description;
+            url.value = bookmarkProp.url;
+            title.value = bookmarkProp.title;
+            description.value = bookmarkProp.description;
         }
     }
 
     return e("div", {className: "overlay", onclick: emitClose, onmounted: onmounted},
         e("div", {className: "container", onclick: (e) => {e.stopPropagation()}},
             // e("h1", {text: "add bookmark"})
-            e("form", {className: "form", onsubmit: formSubmit, onmounted: (elm)=>{formElm = elm}}, 
+            e("form", {className: "form", onsubmit: formSubmit}, 
                 e("h3", {text: isUpdate() ? "Update bookmark" : "Add Bookmark"}),
                 e("label", {text: "Url"}),
-                e("input", {id: "url", type: "url", placeholder: "Enter Url", autocomplete: "url", onchange: enterUrl}),
+                e("input", {id: "url", value: url, type: "url", placeholder: "Enter Url", autocomplete: "url", onchange: enterUrl}),
                 e("div", {className: "error"}),
 
                 e("label", {text: "Title"}),
-                e("input", {id: "title", type: "text", placeholder: "Enter Title"}),
+                e("input", {id: "title", value: title, type: "text", placeholder: "Enter Title"}),
                 e("div", {className: "error"}),
 
                 e("label", {text: "Description"}),
-                e("input", {id: "description", type: "text", placeholder: "Enter Description"}),
+                e("input", {id: "description", value: description, type: "text", placeholder: "Enter Description"}),
                 e("div", {className: "error"}),
 
                 e("div", {className: "action"},
